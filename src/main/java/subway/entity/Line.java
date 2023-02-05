@@ -1,5 +1,7 @@
 package subway.entity;
 
+import org.hibernate.annotations.BatchSize;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,7 +22,9 @@ public class Line {
     @Column(length = 50, nullable = false)
     private String color;
 
-    @OneToMany(mappedBy = "line", cascade = CascadeType.ALL, orphanRemoval = true)
+    @BatchSize(size = 50)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "line_id")
     private List<Section> sections = new ArrayList<>();
 
     protected Line() {
@@ -58,7 +62,6 @@ public class Line {
 
     public void addSection(Section section) {
         this.sections.add(section);
-        section.initLine(this);
     }
 
     public Station getDownEndStation() {

@@ -21,10 +21,6 @@ public class Section {
     @Column
     private Integer distance;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
-    private Line line;
-
     protected Section() {
     }
 
@@ -67,14 +63,6 @@ public class Section {
 
     public Integer getDistance() {
         return distance;
-    }
-
-    public Line getLine() {
-        return line;
-    }
-
-    public void initLine(Line line) {
-        this.line = line;
     }
 
     public Long getUpStationId() {

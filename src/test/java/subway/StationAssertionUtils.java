@@ -6,7 +6,7 @@ import org.junit.jupiter.api.function.Executable;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AssertionUtils {
+public class StationAssertionUtils {
 
     public static Executable withNames(ExtractableResponse<Response> response, String...names) {
         return () -> assertThat(response.jsonPath().getList("name", String.class)).containsAnyOf(names);
@@ -28,7 +28,7 @@ public class AssertionUtils {
         return () -> assertThat((String) response.jsonPath().get("color")).isEqualTo(color);
     }
 
-    public static void assertStationIdsInOrder(ExtractableResponse<Response> lineResponse, Long...ids) {
-        assertThat(lineResponse.jsonPath().getList("stations.id.flatten()", Long.class)).containsExactly(ids);
+    public static void assertStationIdsInOrder(ExtractableResponse<Response> response, Long...ids) {
+        assertThat(response.jsonPath().getList("stations.id.flatten()", Long.class)).containsExactly(ids);
     }
 }

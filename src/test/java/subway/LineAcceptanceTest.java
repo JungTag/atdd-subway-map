@@ -13,7 +13,7 @@ import org.springframework.http.MediaType;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static subway.AssertionUtils.*;
+import static subway.StationAssertionUtils.*;
 
 @DisplayName("지하철 노선 관련 기능")
 @AcceptanceTest

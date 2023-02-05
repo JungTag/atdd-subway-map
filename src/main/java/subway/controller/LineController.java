@@ -4,7 +4,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import subway.model.*;
 import subway.service.LineService;
-import subway.service.SectionService;
 
 import java.net.URI;
 import java.util.List;
@@ -14,11 +13,9 @@ import java.util.List;
 public class LineController {
 
     private final LineService lineService;
-    private final SectionService sectionService;
 
-    public LineController(LineService lineService, SectionService sectionService) {
+    public LineController(LineService lineService) {
         this.lineService = lineService;
-        this.sectionService = sectionService;
     }
 
     @PostMapping
@@ -51,13 +48,13 @@ public class LineController {
 
     @PostMapping("/{id}/sections")
     public ResponseEntity<SectionResponse> createSection(@PathVariable Long id, @RequestBody CreateSectionRequest request) {
-        SectionResponse section = sectionService.createSection(id, request);
+        SectionResponse section = lineService.createSection(id, request);
         return ResponseEntity.created(URI.create("/lines/" + id + "/sections")).body(section);
     }
 
     @DeleteMapping("/{id}/sections")
     public ResponseEntity<Void> deleteLastSection(@PathVariable Long id, @RequestParam Long stationId) {
-        sectionService.deleteLastSection(id, stationId);
+        lineService.deleteLastSection(id, stationId);
         return ResponseEntity.noContent().build();
     }
 }
